@@ -9,6 +9,7 @@ struct node {
 void print_data(struct node *head) {
 	if(head == NULL) {
 		printf("Linked list is empty");
+		return;
 	}
 	struct node *ptr = NULL;
 	ptr = head;

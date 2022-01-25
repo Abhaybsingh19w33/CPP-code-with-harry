@@ -7,6 +7,15 @@ struct node
     struct node *next;
 };
 
+void print(struct node *tail)
+{
+    struct node *p = tail->next;
+    do {
+        printf("%d ", p->data);
+        p = p->next;
+    } while (p != tail->next);
+}
+
 struct node *addToEmpty(int data)
 {
     struct node *temp = malloc(sizeof(struct node));
@@ -21,24 +30,19 @@ struct node *addAtBeg(struct node *tail, int data)
     newP->data = data;
     newP->next = tail->next;
     tail->next = newP;
+    // in circular linked list tail is returned not head
     return tail;
 }
 
-void print(struct node *tail)
-{
-    struct node *p = tail->next;
-    do {
-        printf("%d ", p->data);
-        p = p->next;
-    } while (p != tail->next);
-}
 int main()
 {
     struct node* tail;
     tail = addToEmpty(45);
     tail = addAtBeg(tail,34);
+    tail = addAtBeg(tail,33);
 
     print(tail);
+    printf("\n");
     // printf("%d\n", tail->data);
     return 0;
 }

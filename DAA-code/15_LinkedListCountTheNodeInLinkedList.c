@@ -10,6 +10,8 @@ void count_of_nodes(struct node *head){
 	int count = 0 ;
 	if (head == NULL) {
 		printf("Linked list id empty");
+		printf("%d", count);
+		return;
 	}
 	struct node *ptr = NULL;
 	ptr = head;
