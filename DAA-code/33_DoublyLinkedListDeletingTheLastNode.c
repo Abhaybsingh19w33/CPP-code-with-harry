@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+struct node* delLast(struct node* head);
 struct node {
 	int data;
 	struct node *prev;
@@ -95,20 +96,75 @@ struct node * addAtEnd(struct node* head, int data) {
 	return head;
 }
 
+struct node* createList(struct node* head){
+	int n,data, i;
+	printf("Enter the number of nodes: ");
+	scanf("%d",&n);
+	
+	if(n == 0)
+		return head;
+		
+	printf("Enter the element for the node 1: ");
+	scanf("%d", &data);
+	head = addToEmpty(head, data);
+	
+	for(i = 1; i<n; i++) {
+		printf("Enter the element for the node %d: ", i+1);
+		scanf("%d", &data);
+		head = addAtEnd(head, data);
+	}
+	return head;
+}
+
+struct node* delFirst(struct node* head) {
+	struct node* temp = head;
+	head = head -> next;
+	free(temp);
+	temp = NULL;
+	head -> prev = NULL;
+	return head;
+}
+
+struct node* delLast(struct node* head) {
+	struct node* temp = head;
+	struct node* temp2;
+	while(temp -> next != NULL) {
+		temp = temp -> next;
+	}
+	temp2 = temp->prev;
+	temp2->next = NULL;
+	free(temp); 
+	return head;
+}
+
 int main(){
 	struct node* head = NULL;
 	struct node* ptr;
 	
-	head = addToEmpty(head,45);
-	head = addAtBeg(head,34);
-	head = addAtEnd(head, 9);
-	head = addBeforePos(head, 25, 3);
-	
+//	head = createList(head);
+	head = addToEmpty(head,34);
+	head = addAtEnd(head, 45);
+	head = addAtEnd(head, 3);
+
+	printf("Before deletion\n");
 	ptr = head;
 	while(ptr != NULL) {
 		printf("%d ",ptr -> data);
 		ptr = ptr -> next;	
 	}
-	return 0;
-	
+	printf("\nAfter Deletion\n");
+	head = delFirst(head);
+	ptr = head;
+	while(ptr != NULL) {
+		printf("%d ",ptr -> data);
+		ptr = ptr -> next;	
+	}
+	printf("\nAfter Deletion\n");
+	head = delLast(head);
+	ptr = head;
+	while(ptr != NULL) {
+		printf("%d ",ptr -> data);
+		ptr = ptr -> next;	
+	}
+	return 0;	
 }

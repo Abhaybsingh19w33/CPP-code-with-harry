@@ -122,18 +122,11 @@ struct node* delFirst(struct node* head) {
 	temp = NULL;
 	head -> prev = NULL;
 	return head;
-}
 
-struct node* delLast(struct node* head) {
-	struct node* temp = head;
-	struct node* temp2;
-	while(temp -> next != NULL) {
-		temp = temp -> next;
-	}
-	temp2 = temp->prev;
-	temp2->next = NULL;
-	free(temp); 
-	return head;
+	// another way of deleting the node
+	// head=head->next;
+	// free(head->prev);
+	// head->prev=NULL;
 }
 
 int main(){
@@ -153,13 +146,6 @@ int main(){
 	}
 	printf("\nAfter Deletion\n");
 	head = delFirst(head);
-	ptr = head;
-	while(ptr != NULL) {
-		printf("%d ",ptr -> data);
-		ptr = ptr -> next;	
-	}
-	printf("\nAfter Deletion\n");
-	head = delLAst(head);
 	ptr = head;
 	while(ptr != NULL) {
 		printf("%d ",ptr -> data);
