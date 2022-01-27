@@ -57,6 +57,26 @@ struct node *addAfterPos(struct node *tail, int data, int pos)
     }
     return tail;
 }
+struct node *delLast(struct node *tail)
+{
+    if (tail == NULL)
+        return tail;
+    struct node *temp = tail->next;
+    if (tail->next == tail)
+    {
+        free(tail);
+        tail = NULL;
+        return tail;
+    }
+    while (temp->next != tail)
+    {
+        temp = temp->next;
+    }
+    temp->next = tail->next;
+    free(tail);
+    tail = temp;
+    return tail;
+}
 
 void print(struct node *tail)
 {
@@ -121,12 +141,12 @@ int main()
     struct node *tail = NULL;
     // tail = createList(tail);
     tail = addToEmpty(2);
-    tail = addAtEnd(tail,3);
-    tail = addAtEnd(tail,4);
-    tail = addAtEnd(tail,5);
-    print(tail); 
-    
-    tail = delFirst(tail);
+    tail = addAtEnd(tail, 3);
+    tail = addAtEnd(tail, 4);
+    tail = addAtEnd(tail, 5);
+    print(tail);
+
+    tail = delLast(tail);
     printf("\nlist after deletion\n");
 
     print(tail);

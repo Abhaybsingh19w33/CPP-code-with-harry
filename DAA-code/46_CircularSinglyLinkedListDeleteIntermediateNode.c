@@ -57,6 +57,26 @@ struct node *addAfterPos(struct node *tail, int data, int pos)
     }
     return tail;
 }
+struct node *delLast(struct node *tail)
+{
+    if (tail == NULL)
+        return tail;
+    struct node *temp = tail->next;
+    if (tail->next == tail)
+    {
+        free(tail);
+        tail = NULL;
+        return tail;
+    }
+    while (temp->next != tail)
+    {
+        temp = temp->next;
+    }
+    temp->next = tail->next;
+    free(tail);
+    tail = temp;
+    return tail;
+}
 
 void print(struct node *tail)
 {
@@ -116,17 +136,44 @@ struct node *delFirst(struct node *tail)
     return tail;
 }
 
+struct node *delInter(struct node *tail, int pos)
+{
+    if (tail == NULL)
+        return tail;
+    struct node *temp = tail->next;
+    if (tail->next == tail)
+    {
+        free(tail);
+        tail = NULL;
+        return tail;
+    }
+    while (pos > 2)
+    {
+        temp = temp->next;
+        pos--;
+    }
+    struct node *temp2 = temp->next;
+    temp->next = temp2->next;
+    // handling the case of deleting last node
+    if (temp2 == tail)
+        tail = temp;
+    free(temp2);
+    temp2 = NULL;
+    return tail;
+}
 int main()
 {
     struct node *tail = NULL;
     // tail = createList(tail);
     tail = addToEmpty(2);
-    tail = addAtEnd(tail,3);
-    tail = addAtEnd(tail,4);
-    tail = addAtEnd(tail,5);
-    print(tail); 
-    
-    tail = delFirst(tail);
+    tail = addAtEnd(tail, 3);
+    tail = addAtEnd(tail, 4);
+    tail = addAtEnd(tail, 5);
+    tail = addAtEnd(tail, 6);
+    tail = addAtEnd(tail, 7);
+    print(tail);
+
+    tail = delInter(tail, 5);
     printf("\nlist after deletion\n");
 
     print(tail);
